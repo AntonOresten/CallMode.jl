@@ -1,7 +1,6 @@
 module CallMode
 
 using ReplMaker
-using Setfield
 
 export @call
 
@@ -13,7 +12,9 @@ var"@call" = begin
             begin
                 begin
                     :call, Iterators.map,
-                    esc ∘ arg -> arg isa Expr && arg.head == "=" |> Symbol ? begin @set arg.head = :kw end : arg,
+                    esc ∘ arg -> arg isa Expr && arg.head == "=" |> Symbol ? begin
+                        :kw, arg.args...
+                    end |> begin Expr |> splat end : arg,
                     args
                 end |> begin Expr |> splat end |> eval
             end...

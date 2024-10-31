@@ -1,7 +1,6 @@
 module CallMode
 
 using ReplMaker
-using Setfield
 
 export @call
 
@@ -13,7 +12,9 @@ var"@call" = begin
             begin
                 begin
                     :call, Iterators.map,
-                    esc ∘ arg -> arg isa Expr && arg.head == "=" |> Symbol ? begin @set arg.head = :kw end : arg,
+                    esc ∘ arg -> arg isa Expr && arg.head == "=" |> Symbol ? begin
+                        :kw, arg.args...
+                    end |> begin Expr |> splat end : arg,
                     args
                 end |> begin Expr |> splat end |> eval
             end...
@@ -21,7 +22,7 @@ var"@call" = begin
     end
 end ∘ tuple
 
-__init__ = begin end -> begin @call isdefined Base :active_repl end &&
-    @call initrepl input -> "@call $input" |> Meta.parse prompt_text="@call> " prompt_color=:magenta start_key=')' mode_name="Call Mode"
+#__init__ = begin end -> begin @call isdefined Base :active_repl end &&
+#    @call initrepl input -> "@call $input" |> Meta.parse prompt_text="@call> " prompt_color=:magenta start_key=')' mode_name="Call Mode"
 
 end

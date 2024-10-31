@@ -13,7 +13,7 @@ var"@call" = begin
             begin
                 begin
                     :call, map,
-                    arg -> arg isa Expr && arg.head == "=" |> Symbol ? begin @set arg.head = :kw end |> esc : arg |> esc,
+                    esc ∘ arg -> arg isa Expr && arg.head == "=" |> Symbol ? begin @set arg.head = :kw end : arg,
                     args
                 end |> begin Expr |> splat end |> eval
             end...

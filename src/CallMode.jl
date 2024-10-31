@@ -12,7 +12,7 @@ var"@call" = begin
             :call, func |> esc,
             begin
                 begin
-                    :call, map,
+                    :call, Iterators.map,
                     esc ∘ arg -> arg isa Expr && arg.head == "=" |> Symbol ? begin @set arg.head = :kw end : arg,
                     args
                 end |> begin Expr |> splat end |> eval

@@ -1,6 +1,6 @@
 name = "CallMode"
 uuid = "58f4d5cc-129e-49a8-ab65-a421196c1a3b"
-authors = ["AntonOresten <anton.oresten42@gmail.com> and contributors"]
+authors = ["Anton Oresten <anton.oresten42@gmail.com>"]
 version = "1.0.0"
 
 [deps]

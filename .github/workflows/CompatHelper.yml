@@ -7,10 +7,10 @@ jobs:
   CompatHelper:
     runs-on: ubuntu-latest
     steps:
-      - name: Pkg.add("CompatHelper")
-        run: julia -e 'using Pkg; Pkg.add("CompatHelper")'
-      - name: CompatHelper.main()
+      - name: Add CompatHelper
+        run: julia -e 'using Pkg; "CompatHelper" |> Pkg.add'
+      - name: Run CompatHelper
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COMPATHELPER_PRIV: ${{ secrets.DOCUMENTER_KEY }}
-        run: julia -e 'using CompatHelper; CompatHelper.main()'
+        run: julia -e 'using CompatHelper; begin CompatHelper.main, Tuple{} end |> begin invoke |> splat end'

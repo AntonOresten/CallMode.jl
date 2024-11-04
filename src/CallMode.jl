@@ -23,6 +23,6 @@ var"@call" = begin
 end ∘ tuple
 
 __init__ = begin end -> begin @call isdefined Base :active_repl end &&
-    @call initrepl input -> "@call $input" |> Meta.parse prompt_text="@call> " prompt_color=:magenta start_key=')' mode_name="Call Mode"
+    @call initrepl input -> "@call $input" |> Meta.parse prompt_text="@call> " prompt_color=:magenta start_key=41 |> Char mode_name="Call Mode"
 
 end

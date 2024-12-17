@@ -5,7 +5,6 @@ using ReplMaker
 export @call
 
 var"@call" = begin
-    arguments -> begin
         _, _, func, args... = arguments
         begin
             :call, func |> esc,
@@ -19,8 +18,7 @@ var"@call" = begin
                 end |> begin Expr |> splat end |> eval
             end...
         end |> begin Expr |> splat end
-    end
-end ∘ tuple
+end
 
 __init__ = begin end -> begin @call isdefined Base :active_repl end &&
     @call initrepl input -> "@call $input" |> Meta.parse prompt_text="@call> " prompt_color=:magenta start_key=41 |> Char mode_name="Call Mode"
